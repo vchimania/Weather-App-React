@@ -14,7 +14,7 @@ class Weather extends React.Component {
             status: "Enter a city name:"
         };
     }
-    check = (e) => {
+    check = e => {
         if (e.keyCode === 13) this.search();
     }
     search = prevState => {
