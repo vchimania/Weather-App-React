@@ -10,7 +10,8 @@ class Weather extends React.Component {
             city: "",
             data: {},
             loading: true,
-            date: {}
+            date: {},
+            status: "Enter a city name:"
         };
     }
     check = (e) => {
@@ -27,8 +28,13 @@ class Weather extends React.Component {
                 .then((result) => {
                     this.setState
                         ({
-                            data: result, loading: false, date: new Date().toLocaleString()
+                            data: result, loading: false,
+                            date: new Date().toLocaleString()
                         });
+                    this.setState({
+                        status: this.state.data.cod === "404" ?
+                            "City name doesn't exist!" : "Enter a city name:"
+                    })
                 }).catch(() => {
                     console.log("No cities found");
                 });
@@ -46,7 +52,7 @@ class Weather extends React.Component {
                     </header>
                     {
                         (this.state.loading || this.state.data.cod === "404")
-                            ? <p>Search for a City name here!</p>
+                            ? <p>{this.state.status}</p>
                             :
                             <main>
                                 <section className="location">
